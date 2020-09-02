@@ -44,6 +44,8 @@ document.getElementById('upgrade1').addEventListener('click', function () {
 	document.getElementById('click').innerHTML = `Get 1p/s^${player.clickLayer + 1}`;
 	document.getElementById('highestpoints/s').style = 'display: block';
 	document.getElementById('click').click();
+
+	updateProd();
 });
 
 document.getElementById('upgrade2').addEventListener('click', function () {
@@ -227,11 +229,7 @@ const formatNumber = function (number) {
 	if (number.lt(1e30)) {
 		let x = Decimal.floor(number.log10() / 3);
 		let y = Decimal.pow(1000, x);
-		return (
-			(Decimal.round((number.toNumber() / y) * 1000) / 1000).toString() +
-			' ' +
-			cns.numberNames[x - 1]
-		);
+		return (number.toNumber() / y).toFixed(3) + ' ' + cns.numberNames[x - 1];
 	}
 	if (number.lt(1e100)) {
 		return number.toExponential(2);
