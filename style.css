@@ -1,0 +1,63 @@
+body {
+	padding: 0;
+	margin: 0;
+	background-color: #222222;
+	color: white;
+	font-family: Arial, Helvetica, sans-serif;
+	width: 100%;
+}
+
+button {
+	border: none;
+	box-shadow: none;
+	background-color: slategray;
+	transition: linear 0.2s;
+	padding: 2%;
+	max-width: 25%;
+	animation: fadeIn ease 0.2s;
+}
+
+button:focus {
+	outline: none;
+}
+
+button:hover {
+	background-color: lightgray;
+}
+.absCentered {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100%;
+}
+
+.centered {
+	margin: 0 auto;
+	text-align: center;
+}
+
+#upgradeButtons {
+	margin-top: 5%;
+}
+
+.gray {
+	color: darkgray;
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.ableToPurchase {
+	border: 4px solid #5f5;
+}
+
+.notAbleToPurchase {
+	border: 2px solid #f55;
+}
