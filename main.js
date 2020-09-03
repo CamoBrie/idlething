@@ -117,7 +117,7 @@ const formatNumber = function (number) {
 	if (number.lt(1e100)) {
 		return number.toExponential(2);
 	}
-	return 'e' + (Math.round(number.log10() * 100) / 100).toString();
+	return 'e' + (Math.round(number.log10() * 100) / 100).toFixed(2);
 };
 
 //saving.js
