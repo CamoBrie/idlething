@@ -75,11 +75,11 @@ const show = function () {
 const showOnce = function () {
 	if (!player.upgradesShown.includes(2) && player.progression >= 1 && player.prod[1]) {
 		player.upgradesShown.push(2);
-		document.getElementById('upgrade2').style = 'display: inline !important';
+		document.getElementById('upgrade2').style = 'display: inline';
 	}
 	if (!player.upgradesShown.includes(3) && player.progression >= 2) {
 		player.upgradesShown.push(3);
-		document.getElementById('upgrade3').style = 'display: inline !important';
+		document.getElementById('upgrade3').style = 'display: inline';
 	}
 };
 
