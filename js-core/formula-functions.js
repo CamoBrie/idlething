@@ -14,6 +14,9 @@ const getButtonText = function (name) {
 			return `Autoclick the button at ${player.cps + 1} c/s. (${formatNumber(
 				getCost('upgrade3')
 			)})`;
+		case 'sacrifice':
+			return `Sacrifice all your progress, to reset for a multiplier (e150)
+			[x${formatNumber(getFormula('sacrifice'), 2)}]`;
 
 		default:
 			return;
@@ -51,8 +54,23 @@ const getCost = function (name) {
 					Decimal.pow(100000, Decimal.pow(1.5, player.cps - 9))
 				);
 			}
+		case 'sacrifice':
+			return new Decimal('1e150');
 
 		default:
 			return;
+	}
+};
+
+const getFormula = function (name) {
+	switch (name) {
+		case 'sacrifice':
+			if (player.points.gte(getCost('sacrifice'))) {
+				return Decimal.pow(player.points.log10() - 149, 0.2);
+			}
+			return new Decimal(1);
+
+		default:
+			return 0;
 	}
 };

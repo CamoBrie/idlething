@@ -1,11 +1,11 @@
 var player = {
+	progression: 0,
 	points: new Decimal(0),
 	prod: [],
 	clickLayer: 0,
 	multiLayer: 0,
-	progression: 0,
-	upgradesShown: [],
 	cps: 0,
+	sacrificeMultiplier: new Decimal(1),
 	settings: {
 		updateInterval: 50,
 		showInterval: 100,
@@ -39,7 +39,7 @@ const update = function () {
 	if (player.progression >= 3 && player.cps > 0) {
 		player.prod[player.prod.length - 1].amount = player.prod[
 			player.prod.length - 1
-		].amount.plus(player.cps * delta);
+		].amount.plus(Decimal.mul(player.cps, player.sacrificeMultiplier).mul(delta));
 	}
 };
 
@@ -57,7 +57,7 @@ const show = function () {
 			).toString() + ' p/s';
 	}
 
-	if (player.progression >= 1 && player.prod[1]) {
+	if (player.progression >= 1 && player.prod.length > 0) {
 		document.getElementById('highestpoints/s').innerHTML =
 			formatNumber(
 				player.prod[player.prod.length - 1].amount.mul(
@@ -68,18 +68,24 @@ const show = function () {
 			(player.clickLayer + 1);
 	}
 
+	if (player.progression >= 3) {
+		document.getElementById('sacrifice').innerHTML = getButtonText('sacrifice');
+	}
+
 	showOnce();
 	updateButtons();
 };
 
 const showOnce = function () {
-	if (!player.upgradesShown.includes(2) && player.progression >= 1 && player.prod[1]) {
-		player.upgradesShown.push(2);
+	if (player.progression >= 1) {
 		document.getElementById('upgrade2').style = 'display: inline';
 	}
-	if (!player.upgradesShown.includes(3) && player.progression >= 2) {
+	if (player.progression >= 2) {
 		player.upgradesShown.push(3);
 		document.getElementById('upgrade3').style = 'display: inline';
+	}
+	if (player.progression >= 3 && player.points.gt(new Decimal('1e50'))) {
+		document.getElementById('sacrifice').style = 'display: inline';
 	}
 };
 
@@ -94,20 +100,30 @@ const updateButtons = function () {
 			document.getElementById('upgrade' + i).classList.add('notAbleToPurchase');
 		}
 	}
+	if (player.progression >= 3) {
+		let ableToPurchase = player.points.gte(getCost('sacrifice'));
+		if (ableToPurchase) {
+			document.getElementById('sacrifice').classList.add('ableToPurchase');
+		} else {
+			document.getElementById('sacrifice').classList.add('notAbleToPurchase');
+		}
+	}
 };
 
 const updateProd = function () {
 	for (let i = 0; i < player.prod.length; i++) {
-		player.prod[i].multiplier = Decimal.pow(2, player.multiLayer);
+		player.prod[i].multiplier = Decimal.pow(2, player.multiLayer).mul(
+			player.sacrificeMultiplier
+		);
 	}
 };
 
-const formatNumber = function (number) {
+const formatNumber = function (number, places = 1) {
 	if (number.lt(100)) {
-		return Decimal.round(number.toNumber() * 10) / 10;
+		return number.toFixed(places);
 	}
 	if (number.lt(10000)) {
-		return Decimal.round(number.toNumber());
+		return number.toFixed();
 	}
 	if (number.lt(1e30)) {
 		let x = Decimal.floor(number.log10() / 3);
@@ -119,7 +135,6 @@ const formatNumber = function (number) {
 	}
 	return 'e' + (Math.round(number.log10() * 100) / 100).toFixed(2);
 };
-
 //saving.js
 
 const setTimers = function () {

@@ -70,3 +70,15 @@ window.addEventListener('beforeunload', function () {
 window.addEventListener('offline', function () {
 	setSave();
 });
+
+document.getElementById('sacrifice').addEventListener('click', function () {
+	if (player.points.lt(getCost('sacrifice'))) {
+		return;
+	}
+
+	if (player.progression < 4) {
+		player.progression = 4;
+	}
+
+	resetPlayer('sacrifice', getFormula('sacrifice'));
+});

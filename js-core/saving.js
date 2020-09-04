@@ -18,6 +18,7 @@ const setSave = function () {
 
 const updateOnLoad = function () {
 	player.points = new Decimal(player.points);
+	player.sacrificeMultiplier = new Decimal(player.sacrificeMultiplier);
 	for (let i = 0; i < player.prod.length; i++) {
 		player.prod[i].amount = new Decimal(player.prod[i].amount);
 		player.prod[i].multiplier = new Decimal(player.prod[i].multiplier);

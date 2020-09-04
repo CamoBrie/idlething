@@ -55,9 +55,21 @@ button:hover {
 }
 
 .ableToPurchase {
-	border: 4px solid #5f5;
+	border: 2px solid #5f5;
+	margin: 3px;
 }
 
 .notAbleToPurchase {
 	border: 2px solid #f55;
+	margin: 3px;
+}
+
+.resetButton-1 {
+	background-color: black;
+	color: white;
+}
+
+.resetButton-1:hover {
+	background-color: white;
+	color: black;
 }
