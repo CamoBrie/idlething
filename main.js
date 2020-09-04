@@ -101,6 +101,8 @@ const updateButtons = function () {
 		}
 	}
 	if (player.progression >= 3) {
+		document.getElementById('sacrifice').classList.remove('ableToPurchase');
+		document.getElementById('sacrifice').classList.remove('notAbleToPurchase');
 		let ableToPurchase = player.points.gte(getCost('sacrifice'));
 		if (ableToPurchase) {
 			document.getElementById('sacrifice').classList.add('ableToPurchase');

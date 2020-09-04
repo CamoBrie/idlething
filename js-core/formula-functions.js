@@ -15,7 +15,7 @@ const getButtonText = function (name) {
 				getCost('upgrade3')
 			)})`;
 		case 'sacrifice':
-			return `Sacrifice all your progress, to reset for a multiplier (e150)
+			return `Sacrifice all your progress, to reset for a multiplier (e100)
 			[x${formatNumber(getFormula('sacrifice'), 2)}]`;
 
 		default:
@@ -55,7 +55,7 @@ const getCost = function (name) {
 				);
 			}
 		case 'sacrifice':
-			return new Decimal('1e150');
+			return new Decimal('1e100');
 
 		default:
 			return;
@@ -66,7 +66,7 @@ const getFormula = function (name) {
 	switch (name) {
 		case 'sacrifice':
 			if (player.points.gte(getCost('sacrifice'))) {
-				return Decimal.pow(player.points.log10() - 149, 0.2);
+				return Decimal.pow(player.points.log10() - 99, 0.2);
 			}
 			return new Decimal(1);
 
