@@ -9,34 +9,95 @@
 	</head>
 	<body>
 		<div class="absCentered">
-			<div class="centered">
-				<div class="gray" style="display: none" id="highestpoints/s">0 p/s^2</div>
-				<div class="gray" id="points/s">0 p/s</div>
-				<button id="click">Get 1p/s</button>
-				<div id="points">0</div>
+			<div id="tab-main">
+				<div class="centered">
+					<div class="gray" style="display: none" id="highestpoints/s">
+						0 p/s^2
+					</div>
+					<div class="gray" id="points/s">0 p/s</div>
+					<button id="click">Get 1p/s</button>
+					<div id="points">0</div>
 
-				<div id="upgradeButtons">
-					<button class="inline-button" style="display: inline" id="upgrade1">
-						Upgrade Button to [Get 1p/s^2] (1000)
-					</button>
-					<button class="inline-button" style="display: none" id="upgrade2">
-						Get a x2 Multiplier on all producers. (10 K)
-					</button>
-					<button class="inline-button" style="display: none" id="upgrade3">
-						Autoclick the button at 1 c/s. (100 K)
-					</button>
+					<div id="upgradeButtons">
+						<button
+							class="inline-button"
+							style="display: inline"
+							id="upgrade1"
+						>
+							Upgrade Button to [Get 1p/s^2] (1000)
+						</button>
+						<button class="inline-button" style="display: none" id="upgrade2">
+							Get a x2 Multiplier on all producers. (10 K)
+						</button>
+						<button class="inline-button" style="display: none" id="upgrade3">
+							Autoclick the button at 1 c/s. (100 K)
+						</button>
+					</div>
+					<div id="sacrificeButtons">
+						<button
+							class="inline-button resetButton-1"
+							style="display: none"
+							id="sacrifice"
+						>
+							Sacrifice all your progress, to reset for a multiplier (e100)
+							[x1.00]
+						</button>
+					</div>
 				</div>
-				<div id="sacrificeButtons">
-					<button
-						class="inline-button resetButton-1"
-						style="display: none"
-						id="sacrifice"
-					>
-						Sacrifice all your progress, to reset for a multiplier (e100)
-						[x1.00]
+			</div>
+			<div id="tab-settings">
+				<div class="centered">
+					<div id="settings-timerSliders">
+						<div class="settings-timerSliderContainer">
+							Update HTML page interval (<span id="timerSliderShow"
+								>100</span
+							>ms)
+							<input
+								type="range"
+								min="5"
+								max="100"
+								value="10"
+								class="slider"
+								id="slider-show"
+							/>
+						</div>
+						<div class="settings-timerSliderContainer">
+							Update game resources interval (<span id="timerSliderUpdate"
+								>50</span
+							>ms)
+							<input
+								type="range"
+								min="2"
+								max="100"
+								value="5"
+								class="slider"
+								id="slider-update"
+							/>
+						</div>
+						<div class="settings-timerSliderContainer">
+							Save interval (<span id="timerSliderSave">30000</span>s)
+							<input
+								type="range"
+								min="10"
+								max="100"
+								value="30"
+								class="slider"
+								id="slider-save"
+							/>
+						</div>
+					</div>
+					<button onclick="hardReset(true)" style="margin: 1%; padding: 1%">
+						WIPE SAVE
 					</button>
 				</div>
 			</div>
+			<div id="tab-mana">mana</div>
+		</div>
+
+		<div id="tabBar">
+			<button class="tabButton" onclick="changeTab('main')">Main</button>
+			<button class="tabButton" onclick="changeTab('settings')">Settings</button>
+			<button class="tabButton" onclick="changeTab('mana')">Mana</button>
 		</div>
 
 		<script src="libraries/break_infinity.min.js"></script>

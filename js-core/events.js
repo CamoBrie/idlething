@@ -82,3 +82,19 @@ document.getElementById('sacrifice').addEventListener('click', function () {
 
 	resetPlayer('sacrifice', getFormula('sacrifice'));
 });
+
+document.getElementById('slider-show').addEventListener('change', function () {
+	player.settings.showInterval = 10 * this.value;
+	document.getElementById('timerSliderShow').innerHTML = 10 * this.value;
+	setTimers();
+});
+document.getElementById('slider-update').addEventListener('change', function () {
+	player.settings.updateInterval = 10 * this.value;
+	document.getElementById('timerSliderUpdate').innerHTML = 10 * this.value;
+	setTimers();
+});
+document.getElementById('slider-save').addEventListener('change', function () {
+	player.settings.saveInterval = 1000 * this.value;
+	document.getElementById('timerSliderSave').innerHTML = this.value;
+	setTimers();
+});

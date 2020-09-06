@@ -23,3 +23,23 @@ const resetPlayer = function (type, value) {
 	document.getElementById('upgrade2').innerHTML = getButtonText('upgrade2');
 	document.getElementById('upgrade3').innerHTML = getButtonText('upgrade3');
 };
+
+const hardReset = function (reload = false) {
+	player = {
+		progression: 0,
+		points: new Decimal(0),
+		prod: [],
+		clickLayer: 0,
+		multiLayer: 0,
+		cps: 0,
+		sacrificeMultiplier: new Decimal(1),
+		settings: {
+			updateInterval: '50',
+			showInterval: '100',
+			saveInterval: '30000',
+		},
+	};
+	if (reload) {
+		location.reload();
+	}
+};

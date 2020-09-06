@@ -32,8 +32,13 @@ const updateOnLoad = function () {
 	document.getElementById('upgrade1').innerHTML = getButtonText('upgrade1');
 	document.getElementById('upgrade2').innerHTML = getButtonText('upgrade2');
 	document.getElementById('upgrade3').innerHTML = getButtonText('upgrade3');
+	document.getElementById('timerSliderShow').innerHTML = player.settings.showInterval;
+	document.getElementById('timerSliderUpdate').innerHTML =
+		player.settings.updateInterval;
+	document.getElementById('timerSliderSave').innerHTML =
+		player.settings.saveInterval / 1000;
 
-	if (player.prod.length > 0) {
+	if (player.prod.length > 1) {
 		document.getElementById('highestpoints/s').style = 'display: block';
 	}
 };

@@ -1,23 +1,13 @@
-var player = {
-	progression: 0,
-	points: new Decimal(0),
-	prod: [],
-	clickLayer: 0,
-	multiLayer: 0,
-	cps: 0,
-	sacrificeMultiplier: new Decimal(1),
-	settings: {
-		updateInterval: 50,
-		showInterval: 100,
-		saveInterval: 30000,
-	},
-};
+var player;
+hardReset();
 
 const cns = {
 	numberNames: ['K', 'M', 'B', 'T', 'Qa', 'Qi', 'Sx', 'Sp', 'Oc', 'No', 'Dc'],
 };
 
-var updateTimer, showTimer, saveTimer;
+var updateTimer, showTimer, saveTimer, cTab;
+
+const tabs = ['main', 'settings', 'mana'];
 
 //RUNS EVERY TICK
 const update = function () {
@@ -45,35 +35,37 @@ const update = function () {
 
 //RUNS EVERY WEBSITE-TICK
 const show = function () {
-	if (player.progression >= 0) {
-		document.getElementById('points').innerHTML =
-			formatNumber(player.points).toString() + ' p';
-	}
+	if (cTab == 'main') {
+		if (player.progression >= 0) {
+			document.getElementById('points').innerHTML =
+				formatNumber(player.points).toString() + ' p';
+		}
 
-	if (player.progression >= 0 && player.prod[0]) {
-		document.getElementById('points/s').innerHTML =
-			formatNumber(
-				player.prod[0].amount.mul(player.prod[0].multiplier)
-			).toString() + ' p/s';
-	}
+		if (player.progression >= 0 && player.prod[0]) {
+			document.getElementById('points/s').innerHTML =
+				formatNumber(
+					player.prod[0].amount.mul(player.prod[0].multiplier)
+				).toString() + ' p/s';
+		}
 
-	if (player.progression >= 1 && player.prod.length > 0) {
-		document.getElementById('highestpoints/s').innerHTML =
-			formatNumber(
-				player.prod[player.prod.length - 1].amount.mul(
-					player.prod[player.prod.length - 1].multiplier
-				)
-			).toString() +
-			' p/s^' +
-			(player.clickLayer + 1);
-	}
+		if (player.progression >= 1 && player.prod.length > 0) {
+			document.getElementById('highestpoints/s').innerHTML =
+				formatNumber(
+					player.prod[player.prod.length - 1].amount.mul(
+						player.prod[player.prod.length - 1].multiplier
+					)
+				).toString() +
+				' p/s^' +
+				(player.clickLayer + 1);
+		}
 
-	if (player.progression >= 3) {
-		document.getElementById('sacrifice').innerHTML = getButtonText('sacrifice');
-	}
+		if (player.progression >= 3) {
+			document.getElementById('sacrifice').innerHTML = getButtonText('sacrifice');
+		}
 
-	showOnce();
-	updateButtons();
+		showOnce();
+		updateButtons();
+	}
 };
 
 const showOnce = function () {
@@ -137,7 +129,14 @@ const formatNumber = function (number, places = 1) {
 	}
 	return 'e' + (Math.round(number.log10() * 100) / 100).toFixed(2);
 };
-//saving.js
+
+const changeTab = function (currentTab) {
+	for (let i = 0; i < tabs.length; i++) {
+		document.getElementById(`tab-${tabs[i]}`).style.display = 'none';
+	}
+	document.getElementById(`tab-${currentTab}`).style.display = 'block';
+	cTab = currentTab;
+};
 
 const setTimers = function () {
 	clearInterval(updateTimer);
@@ -159,3 +158,4 @@ loadSave();
 
 updateOnLoad();
 setTimers();
+changeTab('main');
