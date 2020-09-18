@@ -66,7 +66,11 @@ const getFormula = function (name) {
 	switch (name) {
 		case 'sacrifice':
 			if (player.points.gte(getCost('sacrifice'))) {
-				return Decimal.pow(player.points.log10() - 99, 0.2);
+				if (player.sacrificeMultiplier.lt(1e4)) {
+					return Decimal.pow(player.points.log10() - 99, 0.2);
+				} else {
+					return Decimal.pow(player.points.log10() - 99, 0.0005);
+				}
 			}
 			return new Decimal(1);
 
