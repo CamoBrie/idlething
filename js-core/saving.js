@@ -24,6 +24,10 @@ const updateOnLoad = function () {
 		player.prod[i].multiplier = new Decimal(player.prod[i].multiplier);
 	}
 
+	player.mana.currentMana = new Decimal(player.mana.currentMana);
+	player.mana.maxMana = new Decimal(player.mana.maxMana);
+	player.mana.mps = new Decimal(player.mana.mps);
+
 	player.upgradesShown = [];
 
 	updateButtons();

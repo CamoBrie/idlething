@@ -17,6 +17,9 @@ const getButtonText = function (name) {
 		case 'sacrifice':
 			return `Sacrifice all your progress, to reset for a multiplier (e100)
 			[x${formatNumber(getFormula('sacrifice'), 2)}]`;
+		case 'mana':
+			return `Reset all your progress, to unlock Mana (e308.25)
+			[${formatNumber(getFormula('mana'), 0)}]`;
 
 		default:
 			return;
@@ -57,8 +60,11 @@ const getCost = function (name) {
 		case 'sacrifice':
 			return new Decimal('1e100');
 
+		case 'mana':
+			return new Decimal(Number.MAX_VALUE);
+
 		default:
-			return;
+			return 1;
 	}
 };
 
@@ -74,7 +80,13 @@ const getFormula = function (name) {
 			}
 			return new Decimal(1);
 
+		case 'mana':
+			if (player.points.gte(getCost('mana'))) {
+				return new Decimal(1);
+			}
+			return new Decimal(0);
+
 		default:
-			return 0;
+			return;
 	}
 };

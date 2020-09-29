@@ -71,18 +71,6 @@ window.addEventListener('offline', function () {
 	setSave();
 });
 
-document.getElementById('sacrifice').addEventListener('click', function () {
-	if (player.points.lt(getCost('sacrifice'))) {
-		return;
-	}
-
-	if (player.progression < 4) {
-		player.progression = 4;
-	}
-
-	resetPlayer('sacrifice', getFormula('sacrifice'));
-});
-
 document.getElementById('slider-show').addEventListener('change', function () {
 	player.settings.showInterval = 10 * this.value;
 	document.getElementById('timerSliderShow').innerHTML = 10 * this.value;
@@ -97,4 +85,29 @@ document.getElementById('slider-save').addEventListener('change', function () {
 	player.settings.saveInterval = 1000 * this.value;
 	document.getElementById('timerSliderSave').innerHTML = this.value;
 	setTimers();
+});
+
+//RESET BUTTONS
+document.getElementById('sacrifice').addEventListener('click', function () {
+	if (player.points.lt(getCost('sacrifice'))) {
+		return;
+	}
+
+	if (player.progression < 4) {
+		player.progression = 4;
+	}
+
+	resetPlayer('sacrifice', getFormula('sacrifice'));
+});
+
+document.getElementById('reset-mana').addEventListener('click', function () {
+	if (player.points.lt(getCost('mana'))) {
+		return;
+	}
+
+	if (player.progression < 5) {
+		player.progression = 5;
+	}
+
+	resetPlayer('mana', getFormula('mana'));
 });

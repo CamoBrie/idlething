@@ -11,6 +11,11 @@ const resetPlayer = function (type, value) {
 				new Decimal(value)
 			);
 			break;
+		case 'mana':
+			player.sacrificeMultiplier = new Decimal(1);
+			player.mana.maxMana = player.mana.maxMana.plus(1);
+			player.mana.mps = player.mana.mps.plus(0.01);
+			break;
 		default:
 			return;
 	}
@@ -33,6 +38,11 @@ const hardReset = function (reload = false) {
 		multiLayer: 0,
 		cps: 0,
 		sacrificeMultiplier: new Decimal(1),
+		mana: {
+			currentMana: new Decimal(0),
+			maxMana: new Decimal(0),
+			mps: new Decimal(0),
+		},
 		settings: {
 			updateInterval: '50',
 			showInterval: '100',

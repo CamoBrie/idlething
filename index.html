@@ -94,10 +94,20 @@
 			<div id="tab-mana">mana</div>
 		</div>
 
+		<div class="resetButtons">
+			<div class="flex-container">
+				<button style="display: none" class="resetButton-2" id="reset-mana">
+					Reset for mana
+				</button>
+			</div>
+		</div>
+
 		<div id="tabBar">
 			<button class="tabButton" onclick="changeTab('main')">Main</button>
 			<button class="tabButton" onclick="changeTab('settings')">Settings</button>
-			<button class="tabButton" onclick="changeTab('mana')">Mana</button>
+			<button class="tabButton" style="display: none" onclick="changeTab('mana')">
+				Mana
+			</button>
 		</div>
 
 		<script src="libraries/break_infinity.min.js"></script>

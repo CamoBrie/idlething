@@ -31,6 +31,12 @@ const update = function () {
 			player.prod.length - 1
 		].amount.plus(Decimal.mul(player.cps, player.sacrificeMultiplier).mul(delta));
 	}
+
+	if (player.progression >= 4 && player.mana.currentMana < player.mana.maxMana) {
+		player.mana.currentMana = player.mana.currentMana.plus(
+			player.mana.mps.mul(delta)
+		);
+	}
 };
 
 //RUNS EVERY WEBSITE-TICK
@@ -63,6 +69,10 @@ const show = function () {
 			document.getElementById('sacrifice').innerHTML = getButtonText('sacrifice');
 		}
 
+		if (player.progression >= 4) {
+			document.getElementById('reset-mana').innerHTML = getButtonText('mana');
+		}
+
 		showOnce();
 		updateButtons();
 	}
@@ -78,6 +88,10 @@ const showOnce = function () {
 	}
 	if (player.progression >= 3 && player.points.gt(new Decimal('1e50'))) {
 		document.getElementById('sacrifice').style = 'display: inline';
+	}
+	if (player.progression >= 4) {
+		document.getElementById('reset-mana').style = 'display: inline';
+		document.getElementsByClassName('tabButton')[2].style = 'display: inline';
 	}
 };
 
@@ -100,6 +114,16 @@ const updateButtons = function () {
 			document.getElementById('sacrifice').classList.add('ableToPurchase');
 		} else {
 			document.getElementById('sacrifice').classList.add('notAbleToPurchase');
+		}
+	}
+	if (player.progression >= 4) {
+		document.getElementById('reset-mana').classList.remove('ableToPurchase');
+		document.getElementById('reset-mana').classList.remove('notAbleToPurchase');
+		let ableToPurchase = player.points.gte(getCost('mana'));
+		if (ableToPurchase) {
+			document.getElementById('reset-mana').classList.add('ableToPurchase');
+		} else {
+			document.getElementById('reset-mana').classList.add('notAbleToPurchase');
 		}
 	}
 };
